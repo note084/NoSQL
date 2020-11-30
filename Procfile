@@ -1,0 +1,1 @@
+app: FLASK_APP=app flask run -p $PORT
