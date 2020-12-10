@@ -29,17 +29,31 @@ def index():
 
 
     
-@app.route('/user/<user>')
-def get_users(user):
-    response = ddb.get_items(user)
-    return jsonify(response)
+@app.route('/user/<username>')
+def listDirectMessagesFor(username):
+    response = ddb.listDirectMessagesFor(username)
+    return json.dumps(response, indent=2)
 
 @app.route('/dm', methods=['POST'])
 def direct_message():
     message = request.get_json(force=True)
-    time = datetime.now()
-    ddb.create_message(str(message['from']), str(message['to']), str(message['message']), str(time))
-    return make_response("SUCCESS: MESSAGE POSTED", 201)
+    if ddb.create_message(str(message['from_username']), str(message['to_username']), str(message['message'])):
+        return make_response("SUCCESS: MESSAGE POSTED", 201)
+    else:
+        return make_response("ERROR: CONFLICT", 409)
+
+@app.route('/dm/reply/', methods=['POST'])
+def reply_message():
+    content = request.get_json(force=True)
+    if ddb.reply_message(str(content['message_ID']), str(content['from_username']), str(content['message'])):
+        return make_response("SUCCESS: REPLY POSTED", 201)
+    else:
+        return make_response("ERROR: DM NOT FOUND", 404)
+
+@app.route('/dm/list/<messageid>')
+def listReplies(messageid):
+    response = ddb.listRepliesTo(messageid)
+    return json.dumps(response, indent=2)
 
 
 if __name__ == '__main__':

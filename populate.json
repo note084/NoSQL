@@ -1,26 +1,46 @@
 [
     {
-        "username" : "andy",
-        "to": "billy",
-        "message": "helly billy",
-        "time": "2/nov/2020"
+        "dm_id": "1",
+        "user1": "b1",
+        "user2": "b2",
+        "content": [{ 
+            "message_id": "1",
+            "user": "b1",
+            "message": "hello b2 from b1",
+            "timestamp": ""
+            }]
     },
     {
-        "username" : "billy",
-        "to": "andy",
-        "message": "hello andy",
-        "time": "2/nov/2020"
+        "dm_id": "2",
+        "user1": "b1",
+        "user2": "b3",
+        "content": [{ 
+            "message_id": "1",
+            "user": "b1",
+            "message": "hello b3 from b1",
+            "timestamp": ""
+            }]
     },
     {
-        "username" : "billy",
-        "to": "andy",
-        "message": "hello andy1",
-        "time": "2/nov/2020"
+        "dm_id": "3",
+        "user1": "b2",
+        "user2": "b3",
+        "content": [{ 
+            "message_id": "1",
+            "user": "b2",
+            "message": "hello b3 from b2",
+            "timestamp": ""
+            }]
     },
     {
-        "username" : "billy",
-        "to": "andy",
-        "message": "hello andy2",
-        "time": "2/nov/2020"
+        "dm_id": "4",
+        "user1": "b3",
+        "user2": "b4",
+        "content": [{ 
+            "message_id": "1",
+            "user": "b3",
+            "message": "hello b4 from b3",
+            "timestamp": ""
+            }]
     }
 ]
