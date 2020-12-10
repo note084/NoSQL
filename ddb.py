@@ -59,7 +59,7 @@ def init():
                 user1 = data['user1']
                 user2 = data['user2']
                 print("--------------------------------------")
-                print("Adding Direct Message:", dm_id, "for", user1, "and", user2)
+                print("Adding Direct Message ID:", dm_id, "for", user1, "and", user2)
                 for content in data['content']:
                     user = content['user']
                     message = content['message']
