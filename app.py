@@ -24,6 +24,7 @@ def delete():
 app.cli.add_command(delete)
 
 # CUSTOM FUNCTIONS />---------------------------------------------------
+
 # < API FUNCTIONS ------------------------------------------------------
 @app.route('/')
 def index():

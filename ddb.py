@@ -64,7 +64,7 @@ def init():
                     user = content['user']
                     message = content['message']
                     time = datetime.now()
-                    content['timestamp'] = content['timestamp'].replace("", time.strftime("%H:%M:%S"))
+                    content['timestamp'] = content['timestamp'].replace("", time.strftime("%B %d, %Y %H:%M:%S"))
                     time = content['timestamp']
                 print("From:", user)
                 print("Message:", message)
@@ -129,7 +129,7 @@ def create_message(from_username, to_username, message):
             "message_id": "1",
             "user": from_username,
             "message": message,
-            "timestamp": time.strftime("%H:%M:%S")
+            "timestamp": time.strftime("%B %d, %Y %H:%M:%S")
             }]
     }
     dynamo.tables['direct_messages'].put_item(Item=dm)
@@ -146,7 +146,7 @@ def reply_message(messageID, username, reply):
                 "message_id": str(length + 1),
                 "user": username,
                 "message": reply,
-                "timestamp": time.strftime("%H:%M:%S")
+                "timestamp": time.strftime("%B %d, %Y %H:%M:%S")
             }
             item['content'].append(message)
             dynamo.tables['direct_messages'].put_item(Item=item)
