@@ -107,7 +107,14 @@ def listRepliesTo(messageID):
     sort = []
     for item in items:
         if (item['dm_id'] == messageID):
-            sort.append(item['content'])
+            for content in item['content']:
+                temp = {
+                    "message_id": content['message_id'],
+                    "user": content['user'],
+                    "message": content['message'],
+                    "timestamp": content['timestamp']
+                }
+                sort.append(temp)
     if sort == []:
         return False
     else:
@@ -117,7 +124,9 @@ def create_message(from_username, to_username, message):
     current = dynamo.tables['direct_messages'].scan()
     items = current["Items"]
     for item in items:
-        if (item['user1'] == from_username and item['user2'] == to_username) or (item['user2'] == to_username and item['user1'] == from_username):
+        if (item['user1'] == from_username and item['user2'] == to_username):
+            return reply_message(item['dm_id'], from_username, message)
+        if (item['user1'] == to_username and item['user2'] == from_username):
             return reply_message(item['dm_id'], from_username, message)
     time = datetime.now()
     length = len(items)
