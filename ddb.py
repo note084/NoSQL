@@ -153,9 +153,4 @@ def reply_message(messageID, username, reply):
             return True
     return False
 
-    
-
-
-
-
 # HELPER FUNCTIONS />---------------------------------------------------

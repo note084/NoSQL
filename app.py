@@ -12,6 +12,7 @@ app = Flask(__name__)
 
 import ddb
 
+# < CUSTOM FUNCTIONS ---------------------------------------------------
 @app.cli.command('init')
 def init():
     ddb.init()
@@ -22,13 +23,12 @@ def delete():
     ddb.delete()
 app.cli.add_command(delete)
 
-
+# CUSTOM FUNCTIONS />---------------------------------------------------
+# < API FUNCTIONS ------------------------------------------------------
 @app.route('/')
 def index():
     return "This is the main page."
 
-
-    
 @app.route('/user/<username>')
 def listDirectMessagesFor(username):
     response = ddb.listDirectMessagesFor(username)
@@ -55,6 +55,7 @@ def listReplies(messageid):
     response = ddb.listRepliesTo(messageid)
     return json.dumps(response, indent=2)
 
+# API FUNCTIONS />------------------------------------------------------
 
 if __name__ == '__main__':
     app.run()
