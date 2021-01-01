@@ -38,7 +38,22 @@ def listDirectMessagesFor(username):
 @app.route('/dm', methods=['POST'])
 def direct_message():
     message = request.get_json(force=True)
-    if ddb.create_message(str(message['from_username']), str(message['to_username']), str(message['message'])):
+    temp = ''
+    if str(message['message']) == None or str(message['message']) == '':
+        if str(message['quickreply']) == None or str(message['quickreply']) == '':
+            return make_response("ERROR: MESSAGE NOT FOUND", 404)
+        elif str(message['quickreply']) == '1':
+            temp = 'Hello ' + str(message['to_username'])
+        elif str(message['quickreply']) == '2':
+            temp = 'How are you ' + str(message['to_username']) + '?'
+        elif str(message['quickreply']) == '3':
+            temp = 'Goodbye ' + str(message['to_username'])
+        else:
+            return make_response("ERROR: QUICK REPLY NOT FOUND", 404)
+    else:
+        temp = str(message['message'])
+
+    if ddb.create_message(str(message['from_username']), str(message['to_username']), temp):
         return make_response("SUCCESS: MESSAGE POSTED", 201)
     else:
         return make_response("ERROR: CONFLICT", 409)
@@ -46,7 +61,16 @@ def direct_message():
 @app.route('/dm/reply/', methods=['POST'])
 def reply_message():
     content = request.get_json(force=True)
-    if ddb.reply_message(str(content['message_ID']), str(content['from_username']), str(content['message'])):
+    temp = ''
+    if str(content['message']) == '1':
+        temp = 'Hello'
+    elif str(content['message']) == '2':
+        temp = 'How are you?'
+    elif str(content['message']) == '3':
+        temp = 'Goodbye'
+    else:
+        return make_response("ERROR: CONFLICT", 409)
+    if ddb.reply_message(str(content['message_ID']), str(content['from_username']), temp):
         return make_response("SUCCESS: REPLY POSTED", 201)
     else:
         return make_response("ERROR: DM NOT FOUND", 404)
